@@ -7,6 +7,7 @@
 - Horizontly scaling by increasing docker containers
 - Health Check
 - Complete 4 tasks (With approaches)
+- Error logging and server logging
 
 ## Architecture Diagram
 
