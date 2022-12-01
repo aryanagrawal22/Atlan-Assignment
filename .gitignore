@@ -5,3 +5,6 @@
 # Logs
 **/logs
 combined.log
+
+# DB Data
+data

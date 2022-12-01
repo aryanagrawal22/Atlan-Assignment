@@ -1,0 +1,54 @@
+version: "3.9"
+
+# Two Services 1) App 2) DB
+
+services:
+  app:
+    build:
+
+      # Build the image using the Dockerfile
+      context: ./main
+
+      # Send argumnets of development env = TRUE
+      args:
+        - DEV=true
+
+    container_name: atlan-main
+
+    ports:
+      - "5000:5000"
+
+    env_file:
+      - ./main/.env
+
+    # Set the volume to this path (Any changes in container will make change in the outside files and vice versa)
+    volumes:
+      - ./main:/app
+
+    depends_on:
+      - mongo
+
+    links:
+      - mongo
+
+    networks:
+      - network
+
+  mongo:
+    image: mongo:latest
+
+    container_name: mongo
+
+    # Set the volumes into the data/db folder
+    volumes:
+      - ./data/db:/data/db
+
+    ports:
+      - 27017:27017
+
+    networks:
+      - network
+
+networks:
+  network:
+    driver: bridge
