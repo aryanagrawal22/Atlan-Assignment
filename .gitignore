@@ -1,0 +1,7 @@
+# Default
+**/node_modules
+.env
+
+# Logs
+**/logs
+combined.log
