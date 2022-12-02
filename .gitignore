@@ -8,3 +8,7 @@ combined.log
 
 # DB Data
 data
+
+# Config
+
+**/keys.json

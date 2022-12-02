@@ -14,9 +14,12 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "fast-two-sms": "^3.0.0",
+    "googleapis": "^109.0.1",
     "mongo": "^0.1.0",
     "mongoose": "^6.7.1",
     "nodemon": "^2.0.20",
+    "translate": "^1.4.1",
     "winston": "^3.8.2"
   }
 }
