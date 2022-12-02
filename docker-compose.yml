@@ -27,9 +27,44 @@ services:
 
     depends_on:
       - mongo
+      - redis
 
     links:
       - mongo
+      - redis:redis
+
+    networks:
+      - network
+
+  worker:
+    build:
+
+      # Build the image using the Dockerfile
+      context: ./worker
+
+      # Send argumnets of development env = TRUE
+      args:
+        - DEV=true
+
+    container_name: atlan-worker
+
+    ports:
+      - "8000:8000"
+
+    env_file:
+      - ./worker/.env
+
+    # Set the volume to this path (Any changes in container will make change in the outside files and vice versa)
+    volumes:
+      - ./worker:/worker
+
+    depends_on:
+      - mongo
+      - redis
+
+    links:
+      - mongo
+      - redis:redis
 
     networks:
       - network
@@ -45,6 +80,20 @@ services:
 
     ports:
       - 27017:27017
+
+    networks:
+      - network
+
+  redis:
+    image: "redis:alpine"
+
+    container_name: redis
+
+    ports:
+      - "6379:6379"
+
+    expose:
+      - 6379
 
     networks:
       - network

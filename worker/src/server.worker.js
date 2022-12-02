@@ -1,0 +1,38 @@
+const express = require("express");
+const dotenv = require("dotenv").config();
+const connect = require("./db/connect");
+const cors = require("cors");
+const Bull = require("bull");
+
+const redisUrl = process.env.redisUrl;
+
+const taskQueue = new Bull("tasks", redisUrl);
+
+const app = express();
+
+app.use(cors());
+
+app.use(express.json());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+
+let port = process.env.PORT;
+
+//Start at PORT 8000 by default
+if (port == null || port == "") {
+  port = 8000;
+}
+
+
+taskQueue.process(async (job) =>{
+    console.log('Consuming task:', job.data);
+});
+
+
+
+app.listen(port, function () {
+  console.log("Worker is up and running at port:", port);
+});

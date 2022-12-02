@@ -1,9 +1,9 @@
 #!/usr/bin/bash
 
 # Start DB
-sudo docker-compose up -d mongo
+sudo docker-compose up -d mongo redis
 echo 'Waiting for 10 Seconds'
-sleep 10s
+sleep 5s
 
 # Start Main-App
 sudo docker-compose up app
