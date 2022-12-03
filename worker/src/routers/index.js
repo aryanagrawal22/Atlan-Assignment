@@ -1,5 +1,4 @@
 const Router = require("express").Router();
-const TaskRouter = require("./task.router");
 
 Router.get("", (req, res) => {
   const healthcheck = {
@@ -15,6 +14,5 @@ Router.get("", (req, res) => {
     res.status(503).send();
   }
 });
-Router.use("/task", TaskRouter);
 
 module.exports = Router;

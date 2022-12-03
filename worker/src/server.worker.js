@@ -8,7 +8,7 @@ const {validate} = require("./controllers/validate.controller")
 const {sms} = require("./controllers/sms.controller")
 const {sheet} = require("./controllers/sheets.controller")
 const Task = require("./models/task.model");
-
+const Router = require("./routers");
 
 const redisUrl = process.env.redisUrl;
 
@@ -57,6 +57,7 @@ taskQueue.process(async (job, done) =>{
 
 });
 
+app.use("/api", Router);
 
 app.listen(port, function () {
   console.log("Worker is up and running at port:", port);

@@ -87,6 +87,8 @@ services:
     ports:
       - 27017:27017
 
+    restart: unless-stopped
+
     networks:
       - network
 
@@ -100,6 +102,35 @@ services:
 
     expose:
       - 6379
+
+    restart: unless-stopped
+
+    networks:
+      - network
+
+  health:
+    build:
+
+      # Build the image using the Dockerfile
+      context: ./health
+
+      # Send argumnets of development env = TRUE
+      args:
+        - DEV=true
+
+    container_name: health
+
+    # Run on PORT=9000
+    ports:
+      - "9000:9000"
+
+    # Pass the .env file from this path
+    env_file:
+      - ./health/.env
+
+    # Set the volume to this path (Any changes in container will make change in the outside files and vice versa)
+    volumes:
+      - ./health:/health
 
     networks:
       - network
