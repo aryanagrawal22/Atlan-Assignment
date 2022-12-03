@@ -6,8 +6,10 @@ const slangSchema = new mongoose.Schema(
         type: mongoose.SchemaTypes.ObjectId,
     },
     userId: Number,
-    original: String,
-    translate: String,
+    question: String,
+    originalAnswer: String,
+    translateAnswer: String,
+    translateCity: String,
   },
   {
     timestamps: true,

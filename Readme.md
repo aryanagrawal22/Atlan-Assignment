@@ -53,11 +53,13 @@ Request type: GET
         "userId": 1,
         "taskType": 1,
         "response": {
-            "original": "Hello"
+            "question": "Soccer is played with which equipment?",
+            "city": "hi",
+            "answer": "Ball"
         }
     }
     ```
-    
+
 - #### 2.2. `Task2`
     ```
     Task: Validate the data recieved by the users
@@ -74,10 +76,10 @@ Request type: GET
         }
     }
     ```
-    
+
 - #### 2.3. `Task3`
     ```
-    Task: Organizing submitted data on Google Sheets through Google Sheets API 
+    Task: Organizing submitted data on Google Sheets through Google Sheets API
     URL: /api/task
     Request type: POST
     Task Type: 3
@@ -92,7 +94,7 @@ Request type: GET
         }
     }
     ```
-    
+
 - #### 2.4. `Task4`
     ```
     Task: Send an SMS to the customer whose details are collected in the response

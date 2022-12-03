@@ -16,14 +16,19 @@ async function slang(data) {
     if ( userId && taskId ) {
 
       //Convert the text
-      const translated = await translate(response.original, 'hi');
+      //Use this for production (Limited API calls remaining)
+
+      // const translated = await translate(response.originalAnswer, 'hi');
+      const translated = "Translated Text";
 
       // Create a new converted entry
       const newSlang = await Slang.create({
         taskId: taskId,
         userId: userId,
-        original: response.original,
-        translate: translated,
+        question: response.question,
+        originalAnswer: response.answer,
+        translateAnswer: translated,
+        translateCity: response.city
       });
 
       logger.info(`Slang conversion complete of task: ${data.taskId}`);
