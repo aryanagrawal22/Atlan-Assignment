@@ -15,6 +15,7 @@ async function slang(data) {
   try {
     if ( userId && taskId ) {
 
+      //Convert the text
       const translated = await translate(response.original, 'hi');
 
       // Create a new converted entry
@@ -25,13 +26,17 @@ async function slang(data) {
         translate: translated,
       });
 
-      logger.info("Slang conversion complete");
+      logger.info(`Slang conversion complete of task: ${data.taskId}`);
+
+      return("Complete");
 
     } else {
       errorLogger.info("Invalid data received, send valid data");
+      return("Failed");
     }
   } catch (err) {
     errorLogger.info(err.message);
+    return("Failed");
   }
 }
 

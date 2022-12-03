@@ -10,16 +10,24 @@ async function sms(data) {
 
   try {
     if ( userId && taskId ) {
-        const options = { authorization: process.env.SMS_API_KEY, message: ` Your Details :\n Email ID :${response.email}\n Name : ${response.name}\n has been verified ` , numbers: response.mobile };
-        const message = await fast2sms.sendMessage(options); //Asynchronous Function.
 
-        logger.info("SMS Sent");
+      //Authorization
+      const options = { authorization: process.env.SMS_API_KEY, message: ` Your Receipt Details :\n Email ID :${response.email}\n Name : ${response.name}\n has been verified ` , numbers: response.mobile };
+
+      //Send the message
+      const message = await fast2sms.sendMessage(options); //Asynchronous Function.
+
+      logger.info(`SMS Sent of task: ${data.taskId}`);
+
+      return("Complete");
 
     } else {
       errorLogger.info("Invalid data received, send valid data");
+      return("Failed");
     }
   } catch (err) {
     errorLogger.info(err.message);
+    return("Failed");
   }
 }
 

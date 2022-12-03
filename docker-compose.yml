@@ -1,6 +1,6 @@
 version: "3.9"
 
-# Two Services 1) App 2) DB
+# Four Services: 1) App 2) Worker 3) DB 4) Redis
 
 services:
   app:
@@ -15,9 +15,11 @@ services:
 
     container_name: atlan-main
 
+    # Run on PORT=5000
     ports:
       - "5000:5000"
 
+    # Pass the .env file from this path
     env_file:
       - ./main/.env
 
@@ -25,6 +27,7 @@ services:
     volumes:
       - ./main:/app
 
+    # Depends on both mongo and redis
     depends_on:
       - mongo
       - redis
@@ -48,9 +51,11 @@ services:
 
     container_name: atlan-worker
 
+    # Run on PORT=8000
     ports:
       - "8000:8000"
 
+    # Pass the .env file from this path
     env_file:
       - ./worker/.env
 
@@ -58,6 +63,7 @@ services:
     volumes:
       - ./worker:/worker
 
+    # Depends on both mongo and redis
     depends_on:
       - mongo
       - redis

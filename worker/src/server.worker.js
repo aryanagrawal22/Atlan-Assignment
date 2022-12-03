@@ -7,6 +7,7 @@ const {slang} = require("./controllers/slag.controller")
 const {validate} = require("./controllers/validate.controller")
 const {sms} = require("./controllers/sms.controller")
 const {sheet} = require("./controllers/sheets.controller")
+const Task = require("./models/task.model");
 
 
 const redisUrl = process.env.redisUrl;
@@ -35,18 +36,26 @@ taskQueue.process(async (job, done) =>{
 
     console.log('Consuming task:', job.data);
 
-    if(job.data.taskType==1) slang(job.data);
+    let status;
 
-    if(job.data.taskType==2) validate(job.data);
+    // TaskType 1 = Convert to desired slang
+    if(job.data.taskType==1) status = await slang(job.data);
 
-    if(job.data.taskType==3) sheet(job.data);
+    // TaskType 2 = Validate the data
+    if(job.data.taskType==2) status = await validate(job.data);
 
-    if(job.data.taskType==4) sms(job.data);
+    // TaskType 3 = Write data on google sheets
+    if(job.data.taskType==3) status = await sheet(job.data);
+
+    // TaskType 4 = Send SMS as a receipt
+    if(job.data.taskType==4) status = await sms(job.data);
+
+    // Update the Task's status
+    await Task.updateOne({_id: job.data.taskId}, {status: status});
 
     done();
 
 });
-
 
 
 app.listen(port, function () {

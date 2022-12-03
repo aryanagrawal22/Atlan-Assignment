@@ -12,11 +12,12 @@ async function validate(data) {
   try {
     if ( userId && taskId ) {
 
-        let valid = true;
+      let valid = true;
 
-        if (response.monthly_income < response.monthly_savings) {
-            valid=false;
-        }
+      //Validate data
+      if (response.monthly_income < response.monthly_savings) {
+          valid=false;
+      }
 
       // Create a new valid or not entry
       const newValidity = await Valid.create({
@@ -25,13 +26,17 @@ async function validate(data) {
         valid: valid,
       });
 
-      logger.info("Validation check complete");
+      logger.info(`Validation check complete of task: ${data.taskId}`);
+
+      return("Complete");
 
     } else {
       errorLogger.info("Invalid data received, send valid data");
+      return("Failed");
     }
   } catch (err) {
     errorLogger.info(err.message);
+    return("Failed");
   }
 }
 
