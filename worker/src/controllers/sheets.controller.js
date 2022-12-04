@@ -2,6 +2,9 @@ const errorLogger = require("../utils/error.log.util");
 const logger = require("../utils/log.util");
 const { google } = require("googleapis");
 
+// Multiple write access keys to increase write limit to 120 write / minute as each key can write 60 writes / minute
+// NOTE: Max keys = 5 as max write / minute is 300
+let keys = ["./src/config/keys1.json", "./src/config/keys2.json"]
 
 async function sheet(data) {
 
@@ -9,9 +12,13 @@ async function sheet(data) {
   const taskId = data.taskId;
   const userId = data.userId;
 
+  // Rotate keys to write maximum time (Limit: 60 writes per key per project per minute)
+  const key = keys.shift();
+  keys.push(key);
+
   //Authorization
   const auth = new google.auth.GoogleAuth({
-        keyFile: "./src/config/keys.json",
+        keyFile: key,
         scopes: "https://www.googleapis.com/auth/spreadsheets",
     });
 

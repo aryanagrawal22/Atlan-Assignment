@@ -36,14 +36,14 @@ The app also makes a task entry into the database, in order to keep a record and
     **Pros** - Solves problems like power/internet/service outages, becomes failsafe, no single point of failure and robust communication.</br>
     **Cons** - In some rare case, if the redis service goes down then there is a possibility of losing data.</br>
     **Solution** - Queue system like SQS of AWS can be used to implement queues, which is always up as it is a commercial service.
-    
+
 - #### Worker Service
     Worker service will be completing the tasks, like language translation, google sheets data updation, data validation etc. Assuming these tasks takes long to complete, we will be needing multiple Worker Containers to run simultaneously which will be getting data through Redis-Bull Queue.<br/>
     If the one worker container goes down, and the task remains unfinished then the queue handels the problem to pass the task to another container.
-    
+
 - #### Health Service
     This service is used to regulary check the health of the services after set amount of time. If the service finds any critical service down, then it immediately notifies the developers.
-    
+
 - #### Database Service
     The tasks generated on the main service and the results of validated data and translated data (slang) responses will be stored in the database for which we have used the database service.
 
@@ -87,7 +87,7 @@ Request type: GET
     ```
     ##### Solution: Google translate API
     We use the Google Translate API to convert the targeted text to the language of the city. The result is stored in the database with the MCQ question and its answers.
-    
+
 
 - #### 2.2. `Task2`
     ```
@@ -147,11 +147,12 @@ Request type: GET
     }
     ```
     ##### Solution: SMS using fast-two-sms library
-    Implemented SMS service using free trial of fast-two-sms service. 
+    Implemented SMS service using free trial of fast-two-sms service.
 
 ## Features
 
-- Queue Implementation for Robust Communication 
+- Multiple Google Sheets API key implementation for increased writes (max 5 keys possible)
+- Queue Implementation for Robust Communication
 - MongoDB Transactions
 - Horizontly scaling by increasing docker containers
 - Health Check
