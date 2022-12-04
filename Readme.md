@@ -22,6 +22,8 @@ This is a internship task for a Backend Developer Internship where the task give
 ## System Architecture
 
 ![Architecture Diagram](assets/Atlan_Arch.png)
+</br></br>
+Link to Image: https://drive.google.com/file/d/1Vyvo4PWR5P0LOVZAS1pfF53uAnPk0SQI/view
 
 ### Architecture Details
 
