@@ -4,6 +4,7 @@ const slangSchema = new mongoose.Schema(
   {
     taskId: {
         type: mongoose.SchemaTypes.ObjectId,
+        index: true,
     },
     userId: Number,
     question: String,

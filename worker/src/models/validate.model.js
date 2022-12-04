@@ -4,6 +4,7 @@ const validSchema = new mongoose.Schema(
   {
     taskId: {
         type: mongoose.SchemaTypes.ObjectId,
+        index: true,
     },
     userId: Number,
     valid: Boolean,
